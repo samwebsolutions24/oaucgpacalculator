@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>OAU GPA Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f4f4f4;
+    }
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .main {
+      background: white;
+      padding: 20px;
+      box-shadow: 3px 4px 10px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      text-align: center;
+      width: 350px;
+    }
+    .img-logo {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 15px;
+    }
+    .logo {
+      width: 80px;
+      height: auto;
+    }
+    .title {
+      font-size: 22px;
+      margin-bottom: 20px;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    label {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 15px;
+      background-color: #0056b3;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #003d80;
+    }
+    #gpa-result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="container">
+    <div class="main">
+      <div class="img-logo">
+        <img src="img/8bbb4f3b16ef99a70923d8713cab28b8.jpg" alt="Logo" class="logo">
+      </div>
+      
+      <h2 class="title">OAU GPA Calculator for Tech Students</h2>
+      <div class="main-section">
+        <form id="gpa-form">
+          <label for="mth101">MTH 101:</label>
+          <select id="mth101" class="grade">
+            <option value="">Select Grade</option>
+            <option value="5">A</option>
+            <option value="4">B</option>
+            <option value="3">C</option>
+            <option value="2">D</option>
+            <option value="1">E</option>
+            <option value="0">F</option>
+          </select>
+          
+          <label for="phy101">PHY 101:</label>
+          <select id="phy101" class="grade">
+            <option value="">Select Grade</option>
+            <option value="5">A</option>
+            <option value="4">B</option>
+            <option value="3">C</option>
+            <option value="2">D</option>
+            <option value="1">E</option>
+            <option value="0">F</option>
+          </select>
+
+          <label for="chm101">CHM 101:</label>
+          <select id="chm101" class="grade">
+            <option value="">Select Grade</option>
+            <option value="5">A</option>
+            <option value="4">B</option>
+            <option value="3">C</option>
+            <option value="2">D</option>
+            <option value="1">E</option>
+            <option value="0">F</option>
+          </select>
+          
+          <label for="phy107">PHY 107:</label>
+          <select id="phy107" class="grade">
+            <option value="">Select Grade</option>
+            <option value="5">A</option>
+            <option value="4">B</option>
+            <option value="3">C</option>
+            <option value="2">D</option>
+            <option value="1">E</option>
+            <option value="0">F</option>
+          </select>
+          
+          <label for="tpd101">TPD 101:</label>
+          <select id="tpd101" class="grade">
+            <option value="">Select Grade</option>
+            <option value="5">A</option>
+            <option value="4">B</option>
+            <option value="3">C</option>
+            <option value="2">D</option>
+            <option value="1">E</option>
+            <option value="0">F</option>
+          </select>
+          
+          <label for="csc101">CSC 101:</label>
+          <select id="csc101" class="grade">
+            <option value="">Select Grade</option>
+            <option value="5">A</option>
+            <option value="4">B</option>
+            <option value="3">C</option>
+            <option value="2">D</option>
+            <option value="1">E</option>
+            <option value="0">F</option>
+          </select>
+          
+          <label for="chm103">CHM 103:</label>
+          <select id="chm103" class="grade">
+            <option value="">Select Grade</option>
+            <option value="5">A</option>
+            <option value="4">B</option>
+            <option value="3">C</option>
+            <option value="2">D</option>
+            <option value="1">E</option>
+            <option value="0">F</option>
+          </select>
+          
+          <button type="submit" id="calculate-btn">Calculate GPA</button>
+        </form>
+        <p id="gpa-result"></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('gpa-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      let courses = { mth101: 5, phy101: 4, chm101: 4, phy107: 1, tpd101: 1, csc101: 3, chm103: 1 };
+      let totalUnits = 0, totalPoints = 0;
+      for (let course in courses) {
+        let grade = document.getElementById(course).value;
+        if (grade !== "") {
+          totalPoints += parseInt(grade) * courses[course];
+          totalUnits += courses[course];
+        }
+      }
+      let gpa = totalUnits > 0 ? (totalPoints / totalUnits).toFixed(2) : "0.00";
+      document.getElementById('gpa-result').innerText = `Your GPA is: ${gpa}`;
+    });
+  </script>
+</body>
+</html>
